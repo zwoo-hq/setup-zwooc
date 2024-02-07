@@ -1,11 +1,11 @@
 # :gear: zwooc Action
 
-![](https://github.com/zwoohq/setup-zwooc/workflows/build-test/badge.svg)
-![](https://github.com/zwoohq/setup-zwooc/workflows/CodeQL/badge.svg)
+![](https://github.com/zwoo-hq/setup-zwooc/workflows/build-test/badge.svg)
+![](https://github.com/zwoo-hq/setup-zwooc/workflows/CodeQL/badge.svg)
 
 ## About
 
-This action sets up the zwoo build system cli, [`zwooc`](https://github.com/zwoohq/zwooc), on GitHub's hosted Actions runners.
+This action sets up the zwoo build system cli, [`zwooc`](https://github.com/zwoo-hq/zwooc), on GitHub's hosted Actions runners.
 
 This action can be run on `ubuntu-latest`, `windows-latest`, and `macos-latest` GitHub Actions runners, and will install and expose a specified version of the `zwooc` CLI on the runner environment.
 
@@ -15,14 +15,14 @@ Setup `zwooc`:
 
 ```yaml
 steps:
-  - uses: zwoohq/setup-zwooc@v1
+  - uses: zwoo-hq/setup-zwooc@v1
 ```
 
 A specific version of `zwooc` can be installed:
 
 ```yaml
 steps:
-  - uses: zwoohq/setup-zwooc@v1
+  - uses: zwoo-hq/setup-zwooc@v1
     with:
       version: <version>
 ```

@@ -11,7 +11,7 @@ test('gets download url to binary', async () => {
   const url = await getDownloadUrl('1.0.0')
   expect(
     url.startsWith(
-      'https://github.com/zwoohq/zwooc/releases/download/v1.0.0/zwooc_'
+      'https://github.com/zwoo-hq/zwooc/releases/download/v1.0.0/zwooc_'
     )
   ).toBeTruthy()
   expect(url.endsWith('.tar.gz')).toBeTruthy()
@@ -20,7 +20,7 @@ test('gets download url to binary', async () => {
 test('gets download url to latest version', async () => {
   const url = await getDownloadUrl('latest')
   expect(url).toMatch(
-    'https://github.com/zwoohq/zwooc/releases/latest/download/'
+    'https://github.com/zwoo-hq/zwooc/releases/latest/download/'
   )
 })
 

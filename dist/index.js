@@ -6623,14 +6623,16 @@ async function run() {
         const version = core.getInput('version');
         // Download the specific version of the tool, e.g. as a tarball/zipball
         const download = await (0, urls_1.getDownloadUrl)(version);
-        console.log(`Downloading ${download}`);
+        core.debug(`Downloading ${download}`);
         const pathToTarball = await tc.downloadTool(download);
         // Extract the tarball/zipball onto host runner
         const pathToCLI = await tc.extractTar(pathToTarball);
         // Expose the tool by adding it to the PATH
+        core.debug(`Adding ${pathToCLI} to PATH`);
         core.addPath(pathToCLI);
         // Expose installed tool version
         const determinedVersion = await (0, urls_1.determineInstalledVersion)();
+        core.debug(`Installed version: ${determinedVersion}`);
         core.setOutput('version', determinedVersion);
     }
     catch (error) {
@@ -6676,9 +6678,9 @@ const getDownloadUrl = async (version) => {
     const arch = mapArch(os_1.default.arch());
     const filename = `zwooc_${platform}_${arch}.tar.gz`;
     if (version.toLowerCase() === 'latest') {
-        return `https://github.com/zwoohq/zwooc/releases/latest/download/${filename}`;
+        return `https://github.com/zwoo-hq/zwooc/releases/latest/download/${filename}`;
     }
-    return `https://github.com/zwoohq/zwooc/releases/download/v${version}/${filename}`;
+    return `https://github.com/zwoo-hq/zwooc/releases/download/v${version}/${filename}`;
 };
 exports.getDownloadUrl = getDownloadUrl;
 const determineInstalledVersion = async () => {

@@ -26,9 +26,9 @@ export const getDownloadUrl = async (version: string): Promise<string> => {
   const filename = `zwooc_${platform}_${arch}.tar.gz`
 
   if (version.toLowerCase() === 'latest') {
-    return `https://github.com/zwoohq/zwooc/releases/latest/download/${filename}`
+    return `https://github.com/zwoo-hq/zwooc/releases/latest/download/${filename}`
   }
-  return `https://github.com/zwoohq/zwooc/releases/download/v${version}/${filename}`
+  return `https://github.com/zwoo-hq/zwooc/releases/download/v${version}/${filename}`
 }
 
 export const determineInstalledVersion = async (): Promise<string> => {
