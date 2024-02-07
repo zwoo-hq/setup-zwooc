@@ -24,10 +24,10 @@ test('gets download url to latest version', async () => {
   )
 })
 
-// shows how the runner will run a javascript action with env / stdout protocol
-test('test runs', () => {
+test('runs', () => {
   process.env['RUNNER_TEMP'] = os.tmpdir()
   const config = path.join(__dirname, '..', 'action.yml')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const action: any = yaml.load(fs.readFileSync(config, 'utf8'))
   process.env['INPUT_VERSION'] = action.inputs.version.default
   const np = process.execPath

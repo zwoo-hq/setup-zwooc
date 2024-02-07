@@ -1,3 +1,4 @@
+import * as core from '@actions/core'
 import { exec } from 'child_process'
 import os from 'os'
 import { promisify } from 'util'
@@ -32,12 +33,17 @@ export const getDownloadUrl = async (version: string): Promise<string> => {
 }
 
 export const determineInstalledVersion = async (): Promise<string> => {
-  const { stdout } = await doExec('zwooc --version')
+  try {
+    const { stdout } = await doExec('zwooc --version')
+    core.debug(stdout)
+    const version = stdout.trim()
+    if (!version) {
+      throw new Error('Could not determine installed zwooc version')
+    }
 
-  const version = stdout.trim()
-  if (!version) {
-    throw new Error('Could not determine installed zwooc version')
+    return version
+  } catch (err: unknown) {
+    console.log(err)
+    throw err
   }
-
-  return version
 }
