@@ -4,7 +4,7 @@
 
 ## About
 
-This action sets up the zwoo build toll, [`zwooc`](https://github.com/zwoo-hq/zwooc), on GitHub's hosted Actions runners.
+This action sets up the zwoo build tool, [`zwooc`](https://github.com/zwoo-hq/zwooc), on GitHub's hosted Actions runners.
 
 This action can be run on `ubuntu-latest`, `windows-latest`, and `macos-latest` GitHub Actions runners, and will install and expose a specified version of the `zwooc` CLI on the runner environment.
 
