@@ -1,7 +1,6 @@
 # :gear: zwooc Action
 
-![](https://github.com/zwoo-hq/setup-zwooc/workflows/build-test/badge.svg)
-![](https://github.com/zwoo-hq/setup-zwooc/workflows/CodeQL/badge.svg)
+[![Continuous Integration](https://github.com/zwoo-hq/setup-zwooc/actions/workflows/ci.yml/badge.svg)](https://github.com/zwoo-hq/setup-zwooc/actions/workflows/ci.yml)[![CodeQL](https://github.com/zwoo-hq/setup-zwooc/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/zwoo-hq/setup-zwooc/actions/workflows/codeql-analysis.yml)
 
 ## About
 

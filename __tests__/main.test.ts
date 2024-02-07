@@ -46,8 +46,11 @@ test('loads specific version', () => {
 })
 
 // TODO: unskip this until there is a latest version
-test.skip('runs latest', () => {
-  const VERSION = 'latest'
+test.skip('runs with default', () => {
+  const config = path.join(__dirname, '..', 'action.yml')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const action: any = yaml.load(fs.readFileSync(config, 'utf8'))
+  const VERSION = action.inputs.version.default
   const stdout = execAction(VERSION)
 
   console.log(stdout)
