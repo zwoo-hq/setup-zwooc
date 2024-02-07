@@ -44,7 +44,7 @@ Install the dependencies
 $ npm install
 ```
 
-Build the Typescript and package it for distribution
+Build the TypeScript and package it for distribution
 
 ```bash
 $ npm run build && npm run package
@@ -75,7 +75,7 @@ See the [versioning documentation](https://github.com/actions/toolkit/blob/maste
 
 ## Validate
 
-You can now validate the action by referencing `./` in a workflow in your repo (see [test.yml](.github/workflows/test.yml))
+You can now validate the action by referencing `./` in a workflow in your repository (see [test.yml](.github/workflows/test.yml))
 
 ```yaml
 uses: ./
