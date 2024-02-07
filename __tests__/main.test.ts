@@ -31,7 +31,7 @@ test('test runs', () => {
   const action: any = yaml.load(fs.readFileSync(config, 'utf8'))
   process.env['INPUT_VERSION'] = action.inputs.version.default
   const np = process.execPath
-  const ip = path.join(__dirname, '..', 'dist', 'main.js')
+  const ip = path.join(__dirname, '..', 'dist', 'index.js')
   const options: cp.ExecFileSyncOptions = {
     env: process.env
   }
