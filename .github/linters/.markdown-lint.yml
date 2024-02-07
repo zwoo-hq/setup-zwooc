@@ -5,3 +5,8 @@ MD004:
 # Ordered list item prefix
 MD029:
   style: one
+
+# disable rules
+MD013: false
+MD014: false
+MD029: false

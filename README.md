@@ -4,7 +4,7 @@
 
 ## About
 
-This action sets up the zwoo build system cli, [`zwooc`](https://github.com/zwoo-hq/zwooc), on GitHub's hosted Actions runners.
+This action sets up the zwoo build toll, [`zwooc`](https://github.com/zwoo-hq/zwooc), on GitHub's hosted Actions runners.
 
 This action can be run on `ubuntu-latest`, `windows-latest`, and `macos-latest` GitHub Actions runners, and will install and expose a specified version of the `zwooc` CLI on the runner environment.
 
@@ -26,7 +26,6 @@ steps:
       version: <version>
 ```
 
-
 ## Inputs
 
 The actions supports the following inputs:
@@ -34,7 +33,6 @@ The actions supports the following inputs:
 | Name      | Type   | Description                 | Default  | Required |
 | --------- | ------ | --------------------------- | -------- | -------- |
 | `version` | String | zwooc version (or `latest`) | `latest` | false    |
-
 
 ## Develop
 
@@ -46,7 +44,7 @@ Install the dependencies
 $ npm install
 ```
 
-Build the typescript and package it for distribution
+Build the Typescript and package it for distribution
 
 ```bash
 $ npm run build && npm run package
@@ -66,7 +64,7 @@ $ npm test
 
 ## Publish to a distribution branch
 
-Actions are run from GitHub repos so we will checkin the packed dist folder.
+Actions are run from GitHub repository so we will checkin the packed dist folder.
 
 1. Create a new GitHub release
 2. Rebase `v1` branch on `main`
