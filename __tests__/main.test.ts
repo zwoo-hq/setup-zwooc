@@ -24,17 +24,32 @@ test('gets download url to latest version', async () => {
   )
 })
 
-test('runs', () => {
+const execAction = (version: string): string => {
   process.env['RUNNER_TEMP'] = os.tmpdir()
-  const config = path.join(__dirname, '..', 'action.yml')
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const action: any = yaml.load(fs.readFileSync(config, 'utf8'))
-  process.env['INPUT_VERSION'] = action.inputs.version.default
+  process.env['INPUT_VERSION'] = version
+
   const np = process.execPath
   const ip = path.join(__dirname, '..', 'dist', 'index.js')
   const options: cp.ExecFileSyncOptions = {
     env: process.env
   }
   const stdout = cp.execFileSync(np, [ip], options).toString()
+  return stdout
+}
+
+test('loads specific version', () => {
+  const VERSION = '1.0.0-alpha.1'
+  const stdout = execAction(VERSION)
+
   console.log(stdout)
+  expect.stringContaining(VERSION).asymmetricMatch(stdout)
+})
+
+// TODO: unskip this until there is a latest version
+test.skip('runs latest', () => {
+  const VERSION = 'latest'
+  const stdout = execAction(VERSION)
+
+  console.log(stdout)
+  expect.stringContaining(VERSION).asymmetricMatch(stdout)
 })

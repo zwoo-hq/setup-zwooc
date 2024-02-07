@@ -55,7 +55,7 @@ jobs:
         id: test-action
         uses: ./
         with:
-          version: latest
+          version: 1.0.0-alpha.1
 
       - name: Print Output
         id: output
