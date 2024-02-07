@@ -1,89 +1,40 @@
-/**
- * Unit tests for the action's main functionality, src/main.ts
- *
- * These should be run as if the action was called from a workflow.
- * Specifically, the inputs listed in `action.yml` should be set as environment
- * variables following the pattern `INPUT_<INPUT_NAME>`.
- */
+import { getDownloadUrl } from '../src/urls'
+import * as os from 'os'
+import * as process from 'process'
+import * as cp from 'child_process'
+import * as path from 'path'
+import * as fs from 'fs'
+import * as yaml from 'js-yaml'
+import { expect, test } from '@jest/globals'
 
-import * as core from '@actions/core'
-import * as main from '../src/main'
-
-// Mock the action's main function
-const runMock = jest.spyOn(main, 'run')
-
-// Other utilities
-const timeRegex = /^\d{2}:\d{2}:\d{2}/
-
-// Mock the GitHub Actions core library
-let debugMock: jest.SpyInstance
-let errorMock: jest.SpyInstance
-let getInputMock: jest.SpyInstance
-let setFailedMock: jest.SpyInstance
-let setOutputMock: jest.SpyInstance
-
-describe('action', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-
-    debugMock = jest.spyOn(core, 'debug').mockImplementation()
-    errorMock = jest.spyOn(core, 'error').mockImplementation()
-    getInputMock = jest.spyOn(core, 'getInput').mockImplementation()
-    setFailedMock = jest.spyOn(core, 'setFailed').mockImplementation()
-    setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation()
-  })
-
-  it('sets the time output', async () => {
-    // Set the action's inputs as return values from core.getInput()
-    getInputMock.mockImplementation((name: string): string => {
-      switch (name) {
-        case 'milliseconds':
-          return '500'
-        default:
-          return ''
-      }
-    })
-
-    await main.run()
-    expect(runMock).toHaveReturned()
-
-    // Verify that all of the core library functions were called correctly
-    expect(debugMock).toHaveBeenNthCalledWith(1, 'Waiting 500 milliseconds ...')
-    expect(debugMock).toHaveBeenNthCalledWith(
-      2,
-      expect.stringMatching(timeRegex)
+test('gets download url to binary', async () => {
+  const url = await getDownloadUrl('1.0.0')
+  expect(
+    url.startsWith(
+      'https://github.com/zwoohq/zwooc/releases/download/v1.0.0/zwooc_'
     )
-    expect(debugMock).toHaveBeenNthCalledWith(
-      3,
-      expect.stringMatching(timeRegex)
-    )
-    expect(setOutputMock).toHaveBeenNthCalledWith(
-      1,
-      'time',
-      expect.stringMatching(timeRegex)
-    )
-    expect(errorMock).not.toHaveBeenCalled()
-  })
+  ).toBeTruthy()
+  expect(url.endsWith('.tar.gz')).toBeTruthy()
+})
 
-  it('sets a failed status', async () => {
-    // Set the action's inputs as return values from core.getInput()
-    getInputMock.mockImplementation((name: string): string => {
-      switch (name) {
-        case 'milliseconds':
-          return 'this is not a number'
-        default:
-          return ''
-      }
-    })
+test('gets download url to latest version', async () => {
+  const url = await getDownloadUrl('latest')
+  expect(url).toMatch(
+    'https://github.com/zwoohq/zwooc/releases/latest/download/'
+  )
+})
 
-    await main.run()
-    expect(runMock).toHaveReturned()
-
-    // Verify that all of the core library functions were called correctly
-    expect(setFailedMock).toHaveBeenNthCalledWith(
-      1,
-      'milliseconds not a number'
-    )
-    expect(errorMock).not.toHaveBeenCalled()
-  })
+// shows how the runner will run a javascript action with env / stdout protocol
+test('test runs', () => {
+  process.env['RUNNER_TEMP'] = os.tmpdir()
+  const config = path.join(__dirname, '..', 'action.yml')
+  const action: any = yaml.load(fs.readFileSync(config, 'utf8'))
+  process.env['INPUT_VERSION'] = action.inputs.version.default
+  const np = process.execPath
+  const ip = path.join(__dirname, '..', 'dist', 'main.js')
+  const options: cp.ExecFileSyncOptions = {
+    env: process.env
+  }
+  const stdout = cp.execFileSync(np, [ip], options).toString()
+  console.log(stdout)
 })
